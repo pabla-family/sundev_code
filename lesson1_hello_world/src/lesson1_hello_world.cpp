@@ -1,11 +1,4 @@
-//============================================================================
-// Name        : lesson1_hello_world.cpp
-// Author      : 
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-
+// We include iostream so that we can write and read from the screen
 #include <iostream>
 using namespace std;
 
