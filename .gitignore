@@ -1,5 +1,7 @@
-lesson1_hello_world/Debug/
-Release/
+/Debug/
+/Release/
+.metadata/
+appinventor-java-translation-e08752b428c3/
 
 # Compiled Object files
 
