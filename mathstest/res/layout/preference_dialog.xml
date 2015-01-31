@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:id="@+id/preference_layout"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:id="@+id/LinearLayout1" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+    	<LinearLayout android:id="@+id/LinearLayout1" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+    		<TextView android:layout_height="wrap_content" android:id="@+id/textView1" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:text="@string/strGameDurationPreferenceLabel" android:paddingRight="25dp"></TextView>
+    	</LinearLayout>
+    	<EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/editTextGameDuration" android:inputType="number" android:maxLength="3">
+    		<requestFocus></requestFocus>
+    	</EditText>
+    	<TextView android:layout_height="wrap_content" android:id="@+id/TextView01" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:text="@string/strGameTypePreferenceLabel"></TextView>
+    	<Spinner android:id="@+id/spinnerGameType" android:layout_height="fill_parent" android:entries="@array/gameTypeArray" android:layout_width="fill_parent"></Spinner>
+    	<TextView android:layout_height="wrap_content" android:id="@+id/TextView02" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:text="@string/strLevelPreferenceLabel"></TextView>
+    	<Spinner android:id="@+id/spinnerGameLevel" android:entries="@array/gameLevelArray" android:layout_height="match_parent" android:layout_width="match_parent"></Spinner>
+    </LinearLayout>
+</ScrollView>

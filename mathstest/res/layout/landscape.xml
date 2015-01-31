@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+    <TextView android:id="@+id/textView1" android:textAppearance="?android:attr/textAppearanceLarge" android:text="This application does not support landscape - Please rotate back to portrait" android:layout_height="wrap_content" android:textSize="14dp" android:layout_width="wrap_content" android:layout_centerVertical="true" android:layout_centerHorizontal="true"></TextView>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent" android:layout_above="@+id/textViewQuestion" android:orientation="vertical">
+  <com.google.ads.AdView android:id="@+id/adView"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         ads:adUnitId="a14f368e3a1c533"
+                         ads:adSize="BANNER"
+                         ads:testDevices="TEST_EMULATOR, 9E1EAB2B8199393F6FCD494E7D516FCC"
+                         ads:loadAdOnCreate="true"/>
+	</LinearLayout>
+
+</RelativeLayout>

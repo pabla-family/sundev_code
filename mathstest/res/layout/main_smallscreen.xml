@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<RelativeLayout
+	android:id="@+id/widget27"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+    	<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textViewHeader" android:text="@string/hello" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"></TextView>
+    	<Button android:id="@+id/ButtonSix" android:text="6" android:layout_below="@+id/ButtonThree" android:layout_toRightOf="@+id/ButtonFive" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonThree" android:text="3" android:layout_alignBaseline="@+id/ButtonTwo" android:layout_alignBottom="@+id/ButtonTwo" android:layout_toRightOf="@+id/ButtonTwo" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonTwo" android:text="2" android:layout_alignBaseline="@+id/ButtonOne" android:layout_alignBottom="@+id/ButtonOne" android:layout_toRightOf="@+id/ButtonOne" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonEight" android:text="8" android:layout_below="@+id/ButtonFour" android:layout_toRightOf="@+id/ButtonSeven" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonFive" android:text="5" android:layout_above="@+id/ButtonEight" android:layout_toLeftOf="@+id/ButtonThree" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonFour" android:text="4" android:layout_below="@+id/ButtonTwo" android:layout_toLeftOf="@+id/ButtonFive" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonSeven" android:text="7" android:layout_below="@+id/ButtonFive" android:layout_toLeftOf="@+id/ButtonFive" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonNine" android:text="9" android:layout_below="@+id/ButtonSix" android:layout_alignLeft="@+id/ButtonSix" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonClear" android:text="C" android:layout_below="@+id/ButtonSeven" android:layout_alignBottom="@+id/ButtonZero" android:layout_toLeftOf="@+id/ButtonEight" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonZero" android:text="0" android:layout_below="@+id/ButtonEight" android:layout_toRightOf="@+id/ButtonClear" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonEnter" android:text="ENTER" android:layout_alignBaseline="@+id/ButtonZero" android:layout_below="@+id/ButtonNine" android:layout_toRightOf="@+id/ButtonZero" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    	<Button android:id="@+id/ButtonOne" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1" android:layout_below="@+id/textViewQuestion" android:layout_alignParentLeft="true"></Button>
+    	<TextView android:layout_width="wrap_content" android:text="Press any button to begin" android:id="@+id/textViewQuestion" android:layout_height="wrap_content" android:layout_below="@+id/textViewHeader" android:layout_centerHorizontal="true" android:layout_marginTop="10dp"></TextView>
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent" android:layout_toRightOf="@+id/ButtonEnter" android:layout_below="@+id/ButtonThree">
+  				<com.google.ads.AdView android:id="@+id/adView"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         ads:adUnitId="a14f368e3a1c533"
+                         ads:adSize="BANNER"
+                         ads:testDevices="TEST_EMULATOR, 9E1EAB2B8199393F6FCD494E7D516FCC"
+                         ads:loadAdOnCreate="true"/>
+		</LinearLayout>
+	</RelativeLayout>
+</ScrollView>
+

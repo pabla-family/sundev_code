@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<TableLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent" 
+    android:layout_width="fill_parent"
+    android:background="#000044">
+    <TableRow>
+        <Spinner android:id="@+id/spinnerGameType2" android:layout_height="fill_parent" android:entries="@array/gameTypeArray" android:layout_width="fill_parent"></Spinner>
+    	<Spinner android:id="@+id/spinnerGameLevel2" android:entries="@array/gameLevelArray" android:layout_height="match_parent" android:layout_width="match_parent"></Spinner>
+    </TableRow>
+    <TableRow> 
+        <TextView 
+            android:text="Rank"
+            android:width ="120px"
+            />
+        <TextView 
+            android:text="Name"
+            android:width ="120px"
+            />
+        <TextView 
+            android:text="Score"
+            android:width ="120px"
+            />
+    </TableRow> 
+    <TableRow> 
+        <TextView 
+            android:text="1"
+            android:width ="120px"
+            />
+        <TextView 
+        	android:id="@+id/initials1" 
+            android:text="NA"
+            android:width ="120px"
+            />
+        <TextView 
+        	android:id="@+id/score1" 
+            android:text="NA"
+            android:width ="120px"
+            />
+    </TableRow> 
+        <TableRow> 
+        <TextView 
+            android:text="2"
+            android:width ="120px"
+            />
+        <TextView 
+        	android:id="@+id/initials2" 
+            android:text="NA"
+            android:width ="120px"
+            />
+        <TextView 
+        	android:id="@+id/score2" 
+            android:text="NA"
+            android:width ="120px"
+            />
+    </TableRow> 
+        <TableRow> 
+        <TextView 
+            android:text="3"
+            android:width ="120px"
+            />
+         <TextView 
+        	android:id="@+id/initials3" 
+            android:text="NA"
+            android:width ="120px"
+            />
+        <TextView 
+        	android:id="@+id/score3" 
+            android:text="NA"
+            android:width ="120px"
+            />
+    </TableRow> 
+        <TableRow> 
+        <TextView 
+            android:text="4"
+            android:width ="120px"
+            />
+         <TextView 
+        	android:id="@+id/initials4" 
+            android:text="NA"
+            android:width ="120px"
+            />
+        <TextView 
+        	android:id="@+id/score4" 
+            android:text="NA"
+            android:width ="120px"
+            />
+    </TableRow> 
+        <TableRow> 
+        <TextView 
+            android:text="5"
+            android:width ="120px"
+            />
+         <TextView 
+        	android:id="@+id/initials5" 
+            android:text="NA"
+            android:width ="120px"
+            />
+        <TextView 
+        	android:id="@+id/score5" 
+            android:text="NA"
+            android:width ="120px"
+            />
+    </TableRow> 
+    <TableRow>
+        <Button 
+            android:id="@+id/buttonExit" 
+            android:text="Exit" />
+    </TableRow>
+</TableLayout>
+</ScrollView>

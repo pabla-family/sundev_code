@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Welcome to the ultimate Maths Test.  Set your game preferences by selecting the menu option.</string>
+    <string name="app_name">Maths Test</string>
+    <string name="strPreferencesDialogTitle">Set Preferences</string>
+    <string name="strGameDurationSeconds">60</string>
+    <string name="strGameDurationPreferenceLabel">Game Duration (Seconds)</string>
+    <string name="strGameTypePreferenceLabel">Select Type</string>
+    <string name="strLevelPreferenceLabel">Select Difficulty</string>
+    <string-array name="gameTypeArray">
+        <item>Add</item>
+        <item>Minus</item>
+        <item>Times</item>
+        <item>Divide</item>
+        <item>Random</item>
+    </string-array>
+    <string-array name="gameLevelArray">
+        <item>Very Easy</item>
+        <item>Easy</item>
+        <item>Average</item>
+        <item>Hard</item>
+        <item>Very Hard</item>
+    </string-array>
+</resources>
