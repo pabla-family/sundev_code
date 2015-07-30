@@ -1,11 +1,17 @@
 package com.pabla.software.chessplay;
 
+// Import in app inventor api components
 import com.google.devtools.simple.runtime.components.Component;
 import com.google.devtools.simple.runtime.components.HandlesEventDispatching;
 import com.google.devtools.simple.runtime.events.EventDispatcher;
 import com.google.devtools.simple.runtime.components.android.*;
 import com.google.devtools.simple.runtime.components.util.YailList;
 
+// When using app inventor api, the MainActivity class extends Form and implements
+// HandleEventDispatching
+
+// The MainActivity class is responsible for creating and initialising the user interface
+// and for handling events raised by the android operating system
 public class MainActivity extends Form  implements HandlesEventDispatching
 {	
 	private VerticalArrangement m_vertical_arrangement1;
@@ -169,7 +175,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		m_white_rook2.Picture("white_rook.png");
 		
 		// Need to set rotates to false
-		// beacuse a bug in the api being used means that otherwise you will not be able
+		// because a bug in the api being used means that otherwise you will not be able
 		// to resize the sprite
 		m_black_pawn1.Rotates(false);
 		m_black_pawn2.Rotates(false);
@@ -492,6 +498,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 							(int)Double.parseDouble(args[1].toString()),
 							m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW,
 							m_playing_black);
+					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black);
 
 					if ((m_playing_black == true))
 					{
@@ -502,6 +509,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 
 						m_bluetooth_client.SendText( "Move From " + m_move_from + " to " + m_move_to);
 					}
+										
 					m_my_move = false;
 					m_first_touch =true;
 			
@@ -618,7 +626,177 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		x = x*squareSize;
 		y = y*squareSize;
 	}
+	
+	void moveSprite(String moveFrom, String moveTo,int squareSize, boolean isPlayingBlack)
+	{
+		String pieceBeingMoved;
+		Double x =0.0;
+		Double y=0.0;
+		convertChessCoordinateToXY(moveTo,x,y,squareSize,isPlayingBlack);
 
+		// We need to actually move the sprite (piece)
+		pieceBeingMoved = m_chess_guru.getLocationStatus(moveFrom);
 
+		if(pieceBeingMoved.equals("WP1"))
+		{
+			m_white_pawn1.X(x.doubleValue());
+			m_white_pawn1.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WP2"))
+		{
+			m_white_pawn2.X(x.doubleValue());
+			m_white_pawn2.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WP3"))
+		{
+			m_white_pawn3.X(x.doubleValue());
+			m_white_pawn3.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WP4"))
+		{
+			m_white_pawn4.X(x.doubleValue());
+			m_white_pawn4.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WP5"))
+		{
+			m_white_pawn5.X(x.doubleValue());
+			m_white_pawn5.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WP6"))
+		{
+			m_white_pawn6.X(x.doubleValue());
+			m_white_pawn6.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WP7"))
+		{
+			m_white_pawn7.X(x.doubleValue());
+			m_white_pawn7.Y(y.doubleValue());
+		}
 
+		if(pieceBeingMoved.equals("WP8"))
+		{
+			m_white_pawn8.X(x.doubleValue());
+			m_white_pawn8.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WR1"))
+		{
+			m_white_rook1.X(x.doubleValue());
+			m_white_rook1.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WN1"))
+		{
+			m_white_knight1.X(x.doubleValue());
+			m_white_knight1.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WB1"))
+		{
+			m_white_bishop1.X(x.doubleValue());
+			m_white_bishop1.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WQ1"))
+		{
+			m_white_queen.X(x.doubleValue());
+			m_white_queen.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WK1"))
+		{
+			m_white_king.X(x.doubleValue());
+			m_white_king.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WB2"))
+		{
+			m_white_bishop2.X(x.doubleValue());
+			m_white_bishop2.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WN2"))
+		{
+			m_white_knight2.X(x.doubleValue());
+			m_white_knight2.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("WR2"))
+		{
+			m_white_rook2.X(x.doubleValue());
+			m_white_rook2.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BP1"))
+		{
+			m_black_pawn1.X(x.doubleValue());
+			m_black_pawn1.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BP2"))
+		{
+			m_black_pawn2.X(x.doubleValue());
+			m_black_pawn2.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BP3"))
+		{
+			m_black_pawn3.X(x.doubleValue());
+			m_black_pawn3.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BP4"))
+		{
+			m_black_pawn4.X(x.doubleValue());
+			m_black_pawn4.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BP5"))
+		{
+			m_black_pawn5.X(x.doubleValue());
+			m_black_pawn5.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BP6"))
+		{
+			m_black_pawn6.X(x.doubleValue());
+			m_black_pawn6.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BP7"))
+		{
+			m_black_pawn7.X(x.doubleValue());
+			m_black_pawn7.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BP8"))
+		{
+			m_black_pawn8.X(x.doubleValue());
+			m_black_pawn8.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BR1"))
+		{
+			m_black_rook1.X(x.doubleValue());
+			m_black_rook1.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BN1"))
+		{
+			m_black_knight1.X(x.doubleValue());
+			m_black_knight1.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BB1"))
+		{
+			m_black_bishop1.X(x.doubleValue());
+			m_black_bishop1.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BQ1"))
+		{
+			m_black_queen.X(x.doubleValue());
+			m_black_queen.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BK1"))
+		{
+			m_black_king.X(x.doubleValue());
+			m_black_king.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BB2"))
+		{
+			m_black_bishop2.X(x.doubleValue());
+			m_black_bishop2.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BN2"))
+		{
+			m_black_knight2.X(x.doubleValue());
+			m_black_knight2.Y(y.doubleValue());
+		}
+		if(pieceBeingMoved.equals("BR2"))
+		{
+			m_black_rook2.X(x.doubleValue());
+			m_black_rook2.Y(y.doubleValue());
+		}	
+	}
 }

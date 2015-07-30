@@ -80,9 +80,13 @@ public class ChessGuru
 		m_database.StoreValue("E8", "BK1");
 		m_database.StoreValue("F8", "BB2");
 		m_database.StoreValue("G8", "BN2");
-		m_database.StoreValue("H8", "BR2");
-
-		
+		m_database.StoreValue("H8", "BR2");		
 	}
+	
+	public String getLocationStatus(String location)
+	{
+		return (String) m_database.GetValue(location);
+	}
+	
 	
 }
