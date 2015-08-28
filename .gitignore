@@ -1,5 +1,6 @@
 /Debug/
 /Release/
+**/bin/
 .metadata/
 appinventor-java-translation-e08752b428c3/
 

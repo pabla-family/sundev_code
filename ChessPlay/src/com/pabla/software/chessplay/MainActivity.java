@@ -485,11 +485,17 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 			{
 				if (m_first_touch == true)
 				{
+					
 					m_move_from = convertXYtoChessCoordinate((int)Double.parseDouble(args[0].toString()),
 																 (int)Double.parseDouble(args[1].toString()),
 															 m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW,
 															 m_playing_black);
-					m_first_touch =false;
+					
+					// Determine if there is a piece with valid moves at the point touched
+					if (m_chess_guru.doesPieceHaveValidMoves(m_move_from,m_playing_black) == true)
+					{
+						m_first_touch =false;
+					}
 				}
 				else
 				{
@@ -498,18 +504,25 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 							(int)Double.parseDouble(args[1].toString()),
 							m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW,
 							m_playing_black);
-					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black);
-
-					if ((m_playing_black == true))
+					
+					if (m_chess_guru.isMoveValid(m_move_from,m_move_to,m_playing_black) == true)
 					{
-						m_bluetooth_server.SendText( "Move From " + m_move_from + " to " + m_move_to);
-					}
-					else
-					{
+						moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black);
+						String moveDescription = m_chess_guru.updateDatabase(m_move_from, m_move_to);
 
-						m_bluetooth_client.SendText( "Move From " + m_move_from + " to " + m_move_to);
-					}
-										
+						if ((m_playing_black == true))
+						{
+							m_bluetooth_server.SendText( m_move_from + "-" + m_move_to);
+							m_black_moves_label.Text(m_black_moves_label.Text() 
+									+ moveDescription +"\n");
+						}
+						else
+						{
+							m_bluetooth_client.SendText(m_move_from + "-" + m_move_to);
+							m_white_moves_label.Text(m_white_moves_label.Text() 
+									+ moveDescription +"\n");
+						}
+					}				
 					m_my_move = false;
 					m_first_touch =true;
 			
@@ -524,8 +537,14 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 			{
 				if (m_bluetooth_server.BytesAvailableToReceive() >0)
 				{
+					String receivedText = m_bluetooth_server.ReceiveText(m_bluetooth_server.BytesAvailableToReceive());
+					m_move_from = receivedText.substring(0, 2);
+					m_move_to = receivedText.substring(3, 5);
+					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black);
+					// When you update the database, a description of the move is returned
+					String moveDescription = m_chess_guru.updateDatabase(m_move_from, m_move_to);
 					m_white_moves_label.Text(m_white_moves_label.Text() 
-							+ m_bluetooth_server.ReceiveText(m_bluetooth_server.BytesAvailableToReceive())+"\n");
+							+ moveDescription +"\n");
 					m_my_move = true;
 				}
 				
@@ -534,8 +553,13 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 			{
 				if (m_bluetooth_client.BytesAvailableToReceive() >0)
 				{
-					m_black_moves_label.Text(m_black_moves_label.Text() 
-							+ m_bluetooth_client.ReceiveText(m_bluetooth_client.BytesAvailableToReceive())+"\n");
+					String receivedText = m_bluetooth_client.ReceiveText(m_bluetooth_client.BytesAvailableToReceive());
+					m_move_from = receivedText.substring(0, 2);
+					m_move_to = receivedText.substring(3, 5);
+					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black);
+					// When you update the database, a description of the move is returned
+					String moveDescription = m_chess_guru.updateDatabase(m_move_from, m_move_to);
+					m_black_moves_label.Text(m_black_moves_label+moveDescription +"\n");
 					m_my_move = true;
 				}				
 			}
@@ -549,9 +573,9 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 
 		// remember top left is 0,0
 		// So when playing black 0,0 is H1 and when playing white 0,0 is A8
-		String blackColumnCordinates[]={"H","G","F","E","D","C","B","A"};
+		String blackColumnCordinates[]={"h","g","f","e","d","c","b","a"};
 		String blackRowCordinates[]={"1","2","3","4","5","6","7","8"};
-		String whiteColumnCordinates[]={"A","B","C","D","E","F","G","H"};
+		String whiteColumnCordinates[]={"a","b","c","d","e","f","g","h"};
 		String whiteRowCordinates[]={"8","7","6","5","4","3","2","1"};
 		
 		if (isPlayingBlack == true)
@@ -590,35 +614,35 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		}
 		switch (chessCoord.charAt(0))
 		{
-			case 'A' :
+			case 'a' :
 				x = colCoord[0];
 				y = rowCoord[0];
 				break;
-			case 'B' :
+			case 'b' :
 				x = colCoord[1];
 				y = rowCoord[1];
 				break;
-			case 'C' :
+			case 'c' :
 				x = colCoord[2];
 				y = rowCoord[2];
 				break;
-			case 'D' :
+			case 'd' :
 				x = colCoord[3];
 				y = rowCoord[3];
 				break;
-			case 'E' :
+			case 'e' :
 				x = colCoord[4];
 				y = rowCoord[4];
 				break;
-			case 'F' :
+			case 'f' :
 				x = colCoord[5];
 				y = rowCoord[5];
 				break;
-			case 'G' :
+			case 'g' :
 				x = colCoord[6];
 				y = rowCoord[6];
 				break;
-			case 'H' :
+			case 'h' :
 				x = colCoord[7];
 				y = rowCoord[7];
 				break;
@@ -630,6 +654,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 	void moveSprite(String moveFrom, String moveTo,int squareSize, boolean isPlayingBlack)
 	{
 		String pieceBeingMoved;
+		String pieceBeingKilled;
 		Double x =0.0;
 		Double y=0.0;
 		convertChessCoordinateToXY(moveTo,x,y,squareSize,isPlayingBlack);
@@ -797,6 +822,138 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		{
 			m_black_rook2.X(x.doubleValue());
 			m_black_rook2.Y(y.doubleValue());
-		}	
+		}
+		
+		// Check if we need to remove a piece from the board because it has been killed
+		pieceBeingKilled = m_chess_guru.getLocationStatus(moveTo);
+		if(pieceBeingKilled.equals("WP1"))
+		{
+			m_white_pawn1.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WP2"))
+		{
+			m_white_pawn2.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WP3"))
+		{
+			m_white_pawn3.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WP4"))
+		{
+			m_white_pawn4.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WP5"))
+		{
+			m_white_pawn5.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WP6"))
+		{
+			m_white_pawn6.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WP7"))
+		{
+			m_white_pawn7.Visible(false);
+		}
+
+		if(pieceBeingKilled.equals("WP8"))
+		{
+			m_white_pawn8.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WR1"))
+		{
+			m_white_rook1.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WN1"))
+		{
+			m_white_knight1.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WB1"))
+		{
+			m_white_bishop1.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WQ1"))
+		{
+			m_white_queen.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WK1"))
+		{
+			m_white_king.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WB2"))
+		{
+			m_white_bishop2.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WN2"))
+		{
+			m_white_knight2.Visible(false);
+		}
+		if(pieceBeingKilled.equals("WR2"))
+		{
+			m_white_rook2.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BP1"))
+		{
+			m_black_pawn1.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BP2"))
+		{
+			m_black_pawn2.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BP3"))
+		{
+			m_black_pawn3.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BP4"))
+		{
+			m_black_pawn4.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BP5"))
+		{
+			m_black_pawn5.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BP6"))
+		{
+			m_black_pawn6.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BP7"))
+		{
+			m_black_pawn7.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BP8"))
+		{
+			m_black_pawn8.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BR1"))
+		{
+			m_black_rook1.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BN1"))
+		{
+			m_black_knight1.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BB1"))
+		{
+			m_black_bishop1.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BQ1"))
+		{
+			m_black_queen.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BK1"))
+		{
+			m_black_king.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BB2"))
+		{
+			m_black_bishop2.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BN2"))
+		{
+			m_black_knight2.Visible(false);
+		}
+		if(pieceBeingKilled.equals("BR2"))
+		{
+			m_black_rook2.Visible(false);
+		}
 	}
 }
