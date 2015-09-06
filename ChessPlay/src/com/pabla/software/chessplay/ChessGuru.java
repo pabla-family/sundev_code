@@ -118,9 +118,9 @@ public class ChessGuru
 	{
 		String moveDescription;
 		String moveFromDescription = m_database.GetValue(moveFrom).toString().substring(1);
-		String moveToDescription = m_database.GetValue(moveFrom).toString();
+		String moveToDescription = m_database.GetValue(moveTo).toString();
 		
-		if (moveFromDescription == "P")
+		if (moveFromDescription.compareTo("P") == 0)
 		{
 			moveFromDescription = moveFrom;
 			moveDescription = moveFromDescription;
@@ -131,14 +131,14 @@ public class ChessGuru
 			moveDescription = moveFromDescription;
 		}
 		
-		if (moveToDescription == "EMPTY")
+		if (moveToDescription.compareTo("EMPTY") == 0)
 		{
-			moveDescription = moveDescription+"-"+moveFrom;
+			moveDescription = moveDescription+"-"+moveTo;
 		}
 		else
 		{
 			moveToDescription = moveToDescription.substring(1);
-			if (moveToDescription == "P")
+			if (moveToDescription.compareTo("P")==0)
 			{
 				moveDescription = moveDescription+"x"+moveTo;
 			}
@@ -154,6 +154,7 @@ public class ChessGuru
 		
 		// Update the database
 		m_database.StoreValue(moveTo,(String) m_database.GetValue(moveFrom));
+		m_database.StoreValue(moveFrom,"EMPTY");
 
 		
 		return moveDescription;

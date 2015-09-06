@@ -507,7 +507,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 					
 					if (m_chess_guru.isMoveValid(m_move_from,m_move_to,m_playing_black) == true)
 					{
-						moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black);
+						moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black,true);
 						String moveDescription = m_chess_guru.updateDatabase(m_move_from, m_move_to);
 
 						if ((m_playing_black == true))
@@ -540,7 +540,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 					String receivedText = m_bluetooth_server.ReceiveText(m_bluetooth_server.BytesAvailableToReceive());
 					m_move_from = receivedText.substring(0, 2);
 					m_move_to = receivedText.substring(3, 5);
-					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black);
+					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black,false);
 					// When you update the database, a description of the move is returned
 					String moveDescription = m_chess_guru.updateDatabase(m_move_from, m_move_to);
 					m_white_moves_label.Text(m_white_moves_label.Text() 
@@ -556,7 +556,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 					String receivedText = m_bluetooth_client.ReceiveText(m_bluetooth_client.BytesAvailableToReceive());
 					m_move_from = receivedText.substring(0, 2);
 					m_move_to = receivedText.substring(3, 5);
-					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black);
+					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black,false);
 					// When you update the database, a description of the move is returned
 					String moveDescription = m_chess_guru.updateDatabase(m_move_from, m_move_to);
 					m_black_moves_label.Text(m_black_moves_label+moveDescription +"\n");
@@ -592,7 +592,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 	
 	// Note that x and y are passed as objects because we want to effectively pass by 
 	// reference
-	void convertChessCoordinateToXY(String chessCoord, Double x, Double y, int squareSize, boolean isPlayingBlack)
+	void convertChessCoordinateToXY(String chessCoord, Double x, Double y, int squareSize, boolean isPlayingBlack, boolean isMyMove)
 	{
 		Double blackColCordinates[]={7.0,6.0,5.0,4.0,3.0,2.0,1.0,0.0};
 		Double blackRowCordinates[]={0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0};
@@ -602,7 +602,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		Double colCoord[];
 		Double rowCoord[];
 		
-		if (isPlayingBlack == true)
+		if (((isPlayingBlack == true) && (isMyMove == true)) || ((isPlayingBlack == false) && (isMyMove == false)))
 		{
 			colCoord = blackColCordinates;
 			rowCoord = blackRowCordinates;
@@ -616,48 +616,67 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		{
 			case 'a' :
 				x = colCoord[0];
-				y = rowCoord[0];
 				break;
 			case 'b' :
 				x = colCoord[1];
-				y = rowCoord[1];
 				break;
 			case 'c' :
 				x = colCoord[2];
-				y = rowCoord[2];
 				break;
 			case 'd' :
 				x = colCoord[3];
-				y = rowCoord[3];
 				break;
 			case 'e' :
 				x = colCoord[4];
-				y = rowCoord[4];
 				break;
 			case 'f' :
 				x = colCoord[5];
-				y = rowCoord[5];
 				break;
 			case 'g' :
 				x = colCoord[6];
-				y = rowCoord[6];
 				break;
 			case 'h' :
 				x = colCoord[7];
-				y = rowCoord[7];
 				break;
 		}
 		x = x*squareSize;
+		switch (chessCoord.charAt(1))
+		{
+			case '1' :
+				y = rowCoord[0];
+				break;
+			case '2' :
+				y = rowCoord[1];
+				break;
+			case '3' :
+				y = rowCoord[2];
+				break;
+			case '4' :
+				y = rowCoord[3];
+				break;
+			case '5' :
+				y = rowCoord[4];
+				break;
+			case '6' :
+				y = rowCoord[5];
+				break;
+			case '7' :
+				y = rowCoord[6];
+				break;
+			case '8' :
+				y = rowCoord[7];
+				break;
+		}
 		y = y*squareSize;
 	}
 	
-	void moveSprite(String moveFrom, String moveTo,int squareSize, boolean isPlayingBlack)
+	void moveSprite(String moveFrom, String moveTo,int squareSize, boolean isPlayingBlack, boolean isMyMove)
 	{
 		String pieceBeingMoved;
 		String pieceBeingKilled;
 		Double x =0.0;
 		Double y=0.0;
-		convertChessCoordinateToXY(moveTo,x,y,squareSize,isPlayingBlack);
+		convertChessCoordinateToXY(moveTo,x,y,squareSize,isPlayingBlack,isMyMove);
 
 		// We need to actually move the sprite (piece)
 		pieceBeingMoved = m_chess_guru.getLocationStatus(moveFrom);
