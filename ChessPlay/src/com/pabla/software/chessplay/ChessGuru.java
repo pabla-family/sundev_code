@@ -117,7 +117,7 @@ public class ChessGuru
 	public String updateDatabase(String moveFrom,String moveTo)
 	{
 		String moveDescription;
-		String moveFromDescription = m_database.GetValue(moveFrom).toString().substring(1);
+		String moveFromDescription = m_database.GetValue(moveFrom).toString().substring(1, 2);
 		String moveToDescription = m_database.GetValue(moveTo).toString();
 		
 		if (moveFromDescription.compareTo("P") == 0)
@@ -137,7 +137,7 @@ public class ChessGuru
 		}
 		else
 		{
-			moveToDescription = moveToDescription.substring(1);
+			moveToDescription = moveToDescription.substring(1,2);
 			if (moveToDescription.compareTo("P")==0)
 			{
 				moveDescription = moveDescription+"x"+moveTo;

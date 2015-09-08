@@ -224,75 +224,75 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 	void setBlackPlayerBoard(int screenWidth)
 	{	
 		double square_size = screenWidth/M_CHESS_BOARD_SQUARES_PER_ROW;
-		m_white_rook1.X(square_size*0); //A8
-		m_white_rook1.Y(square_size*0); //A8
-		m_white_knight1.X(square_size*1);
+		
+		// We shall use a convention which dicatates that white rook 1 is at A1
+		m_white_rook1.X(square_size*7);
+		m_white_rook1.Y(square_size*0);
+		m_white_knight1.X(square_size*6);
 		m_white_knight1.Y(square_size*0);
-		m_white_bishop1.X(square_size*2);
+		m_white_bishop1.X(square_size*5);
 		m_white_bishop1.Y(square_size*0);
-		m_white_king.X(square_size*3);
+		m_white_king.X(square_size*4);
 		m_white_king.Y(square_size*0);
-		m_white_queen.X(square_size*4);
+		m_white_queen.X(square_size*3);
 		m_white_queen.Y(square_size*0);
-		m_white_bishop2.X(square_size*5);
+		m_white_bishop2.X(square_size*2);
 		m_white_bishop2.Y(square_size*0);
-		m_white_knight2.X(square_size*6);
+		m_white_knight2.X(square_size*1);
 		m_white_knight2.Y(square_size*0);
-		m_white_rook2.X(square_size*7);	
+		m_white_rook2.X(square_size*0);	
 		m_white_rook2.Y(square_size*0);
 		
-		m_white_pawn1.X(square_size*0);
+		m_white_pawn1.X(square_size*7);
 		m_white_pawn1.Y(square_size*1);
-		m_white_pawn2.X(square_size*1);
+		m_white_pawn2.X(square_size*6);
 		m_white_pawn2.Y(square_size*1);
-		m_white_pawn3.X(square_size*2);
+		m_white_pawn3.X(square_size*5);
 		m_white_pawn3.Y(square_size*1);
-		m_white_pawn4.X(square_size*3);
+		m_white_pawn4.X(square_size*4);
 		m_white_pawn4.Y(square_size*1);
-		m_white_pawn5.X(square_size*4);
+		m_white_pawn5.X(square_size*3);
 		m_white_pawn5.Y(square_size*1);
-		m_white_pawn6.X(square_size*5);
+		m_white_pawn6.X(square_size*2);
 		m_white_pawn6.Y(square_size*1);
-		m_white_pawn7.X(square_size*6);
+		m_white_pawn7.X(square_size*1);
 		m_white_pawn7.Y(square_size*1);
-		m_white_pawn8.X(square_size*7);
+		m_white_pawn8.X(square_size*0);
 		m_white_pawn8.Y(square_size*1);
 		
-		m_black_pawn1.X(square_size*0); 
+		m_black_pawn1.X(square_size*7); 
 		m_black_pawn1.Y(square_size*6); 
-		m_black_pawn2.X(square_size*1);
+		m_black_pawn2.X(square_size*6);
 		m_black_pawn2.Y(square_size*6);
-		m_black_pawn3.X(square_size*2);
+		m_black_pawn3.X(square_size*5);
 		m_black_pawn3.Y(square_size*6);
-		m_black_pawn4.X(square_size*3);
+		m_black_pawn4.X(square_size*4);
 		m_black_pawn4.Y(square_size*6);
-		m_black_pawn5.X(square_size*4);
+		m_black_pawn5.X(square_size*3);
 		m_black_pawn5.Y(square_size*6);
-		m_black_pawn6.X(square_size*5);
+		m_black_pawn6.X(square_size*2);
 		m_black_pawn6.Y(square_size*6);
-		m_black_pawn7.X(square_size*6);
+		m_black_pawn7.X(square_size*1);
 		m_black_pawn7.Y(square_size*6);
-		m_black_pawn8.X(square_size*7);
+		m_black_pawn8.X(square_size*0);
 		m_black_pawn8.Y(square_size*6);
 		
-		m_black_rook1.X(square_size*0); //A8
+		m_black_rook1.X(square_size*7); //A8
 		m_black_rook1.Y(square_size*7); //A8
-		m_black_knight1.X(square_size*1);
+		m_black_knight1.X(square_size*6);
 		m_black_knight1.Y(square_size*7);
-		m_black_bishop1.X(square_size*2);
+		m_black_bishop1.X(square_size*5);
 		m_black_bishop1.Y(square_size*7);
-		m_black_king.X(square_size*3);
+		m_black_king.X(square_size*4);
 		m_black_king.Y(square_size*7);
-		m_black_queen.X(square_size*4);
+		m_black_queen.X(square_size*3);
 		m_black_queen.Y(square_size*7);
-		m_black_bishop2.X(square_size*5);
+		m_black_bishop2.X(square_size*2);
 		m_black_bishop2.Y(square_size*7);
-		m_black_knight2.X(square_size*6);
+		m_black_knight2.X(square_size*1);
 		m_black_knight2.Y(square_size*7);
-		m_black_rook2.X(square_size*7);	
+		m_black_rook2.X(square_size*0);	
 		m_black_rook2.Y(square_size*7);
-		
-
 	}
 	void setWhitePlayerBoard(int screenWidth)
 	{
@@ -451,6 +451,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
         }
 		else if (component.equals(m_bluetooth_connection_picker) && eventName.equals("Click")) 
 		{
+			
         	m_bluetooth_connection_picker.Open();
         } 
 		else if (component.equals(m_bluetooth_connection_picker) && eventName.equals("BeforePicking"))
@@ -559,7 +560,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 					moveSprite(m_move_from, m_move_to, m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW, m_playing_black,false);
 					// When you update the database, a description of the move is returned
 					String moveDescription = m_chess_guru.updateDatabase(m_move_from, m_move_to);
-					m_black_moves_label.Text(m_black_moves_label+moveDescription +"\n");
+					m_black_moves_label.Text(m_black_moves_label.Text()+moveDescription +"\n");
 					m_my_move = true;
 				}				
 			}
@@ -592,7 +593,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 	
 	// Note that x and y are passed as objects because we want to effectively pass by 
 	// reference
-	void convertChessCoordinateToXY(String chessCoord, Double x, Double y, int squareSize, boolean isPlayingBlack, boolean isMyMove)
+	Double[] convertChessCoordinateToXY(String chessCoord, int squareSize, boolean isPlayingBlack, boolean isMyMove)
 	{
 		Double blackColCordinates[]={7.0,6.0,5.0,4.0,3.0,2.0,1.0,0.0};
 		Double blackRowCordinates[]={0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0};
@@ -601,6 +602,9 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		
 		Double colCoord[];
 		Double rowCoord[];
+		
+		Double x = 0.0;
+		Double y = 0.0;
 		
 		if (((isPlayingBlack == true) && (isMyMove == true)) || ((isPlayingBlack == false) && (isMyMove == false)))
 		{
@@ -668,15 +672,19 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 				break;
 		}
 		y = y*squareSize;
+		
+		return new Double[] { x, y };
 	}
 	
 	void moveSprite(String moveFrom, String moveTo,int squareSize, boolean isPlayingBlack, boolean isMyMove)
 	{
 		String pieceBeingMoved;
 		String pieceBeingKilled;
-		Double x =0.0;
-		Double y=0.0;
-		convertChessCoordinateToXY(moveTo,x,y,squareSize,isPlayingBlack,isMyMove);
+
+		Double[] xy = convertChessCoordinateToXY(moveTo,squareSize,isPlayingBlack,isMyMove);
+		
+		Double x = xy[0];
+		Double y = xy[1];
 
 		// We need to actually move the sprite (piece)
 		pieceBeingMoved = m_chess_guru.getLocationStatus(moveFrom);
