@@ -19,6 +19,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 	private HorizontalArrangement m_horizontal_arrangement2;
 	private ListPicker m_bluetooth_connection_picker;
 	private Label m_connection_status_label;
+	private Button m_reverse_last_move_button;
 	private Label m_white_moves_label;
 	private Label m_black_moves_label;
 	private Canvas m_chess_board;
@@ -81,6 +82,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		m_my_move = true;
 		
 		// Initialise the components
+		this.ScreenOrientation("portrait");
 		m_vertical_arrangement1 = new VerticalArrangement(this);
 		m_horizontal_arrangement1 = new HorizontalArrangement(m_vertical_arrangement1);
 		m_bluetooth_connection_picker = new ListPicker(m_horizontal_arrangement1);
@@ -97,7 +99,9 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		m_connection_status_label = new Label(m_horizontal_arrangement1);
 		m_connection_status_label.Text("Not Connected ");
 		m_chess_board = new Canvas(m_vertical_arrangement1);
-		
+		m_reverse_last_move_button = new Button(m_vertical_arrangement1);
+		m_reverse_last_move_button.Text("Reject Last Move");
+		m_reverse_last_move_button.Enabled(false);
 		m_horizontal_arrangement2 = new HorizontalArrangement(m_vertical_arrangement1);
 		m_white_moves_label = new Label(m_horizontal_arrangement2);
 		m_white_moves_label.Text("White Moves\n");
@@ -448,6 +452,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 			m_white_rook2.Height(m_screen_width/M_CHESS_BOARD_SQUARES_PER_ROW);
 			
 			m_first_touch = true;
+
         }
 		else if (component.equals(m_bluetooth_connection_picker) && eventName.equals("Click")) 
 		{
@@ -523,9 +528,15 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 							m_white_moves_label.Text(m_white_moves_label.Text() 
 									+ moveDescription +"\n");
 						}
-					}				
-					m_my_move = false;
-					m_first_touch =true;
+						m_my_move = false;
+						m_first_touch =true;
+					}
+					else
+					{
+						m_my_move = true;
+						m_first_touch =true;
+					}
+					
 			
 	
 				}
@@ -597,16 +608,19 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 	{
 		Double blackColCordinates[]={7.0,6.0,5.0,4.0,3.0,2.0,1.0,0.0};
 		Double blackRowCordinates[]={0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0};
+		
+		
 		Double whiteColCordinates[]={0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0};
 		Double whiteRowCordinates[]={7.0,6.0,5.0,4.0,3.0,2.0,1.0,0.0};
 		
+				
 		Double colCoord[];
 		Double rowCoord[];
 		
 		Double x = 0.0;
 		Double y = 0.0;
 		
-		if (((isPlayingBlack == true) && (isMyMove == true)) || ((isPlayingBlack == false) && (isMyMove == false)))
+		if (isPlayingBlack == true)
 		{
 			colCoord = blackColCordinates;
 			rowCoord = blackRowCordinates;

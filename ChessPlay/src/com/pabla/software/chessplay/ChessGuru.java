@@ -99,17 +99,43 @@ public class ChessGuru
 	}
 	
 	//TODO This function needs populating, for now it is a
-	// stub which will always return true
+	// stub which only checks that the player is at least moving his own piece
 	public Boolean doesPieceHaveValidMoves(String location, Boolean isPlayingBlack)
 	{
-		return true;
+		boolean pieceHasValidMoves = false;
+		// Only let player move piece of his own coluur
+		String colourOfPieceBeingMoved = m_database.GetValue(location).toString().substring(0, 1);
+		
+		if (((colourOfPieceBeingMoved.compareTo("B") == 0)  && (isPlayingBlack == true)) ||
+			((colourOfPieceBeingMoved.compareTo("W") == 0)  && (isPlayingBlack == false)))
+		{
+			pieceHasValidMoves = true;
+		}
+		return pieceHasValidMoves;
 	}
 	
 	//TODO This function needs populating, for now it is a
 	// stub which will always return true 
 	public Boolean isMoveValid(String moveFrom,String moveTo, Boolean isPlayingBlack)
 	{
-		return true;
+		boolean moveIsValid = false;
+		
+		if ( m_database.GetValue(moveTo).toString().compareTo("EMPTY") == 0)
+		{
+			moveIsValid = true;
+		}
+		else
+		{
+			// Only let player kill a piece of the opposite colour
+			String colourOfPieceBeingKilled = m_database.GetValue(moveTo).toString().substring(0, 1);
+
+			if (((colourOfPieceBeingKilled.compareTo("W") == 0)  && (isPlayingBlack == true)) ||
+					((colourOfPieceBeingKilled.compareTo("B") == 0)  && (isPlayingBlack == false)))
+			{
+				moveIsValid = true;
+			}
+		}
+		return moveIsValid;
 	}
 	
 	// Update Database - It is up to the user of this class to have checked that moves are valid
