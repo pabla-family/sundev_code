@@ -57,6 +57,7 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 	private ImageSprite m_white_rook2;
 	private BluetoothClient m_bluetooth_client;
 	private BluetoothServer m_bluetooth_server;
+	private String m_server_phone;
 	private Clock m_clock;
 	private TinyDB m_database;
 	
@@ -236,10 +237,11 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		m_white_knight1.Y(square_size*0);
 		m_white_bishop1.X(square_size*5);
 		m_white_bishop1.Y(square_size*0);
-		m_white_king.X(square_size*4);
-		m_white_king.Y(square_size*0);
-		m_white_queen.X(square_size*3);
+		m_white_queen.X(square_size*4);
 		m_white_queen.Y(square_size*0);
+		m_white_king.X(square_size*3);
+		m_white_king.Y(square_size*0);
+
 		m_white_bishop2.X(square_size*2);
 		m_white_bishop2.Y(square_size*0);
 		m_white_knight2.X(square_size*1);
@@ -287,10 +289,10 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		m_black_knight1.Y(square_size*7);
 		m_black_bishop1.X(square_size*5);
 		m_black_bishop1.Y(square_size*7);
-		m_black_king.X(square_size*4);
-		m_black_king.Y(square_size*7);
-		m_black_queen.X(square_size*3);
+		m_black_queen.X(square_size*4);
 		m_black_queen.Y(square_size*7);
+		m_black_king.X(square_size*3);
+		m_black_king.Y(square_size*7);
 		m_black_bishop2.X(square_size*2);
 		m_black_bishop2.Y(square_size*7);
 		m_black_knight2.X(square_size*1);
@@ -465,7 +467,8 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		}
 		else if (component.equals(m_bluetooth_connection_picker) && eventName.equals("AfterPicking"))
 		{
-			m_connected = m_bluetooth_client.Connect(m_bluetooth_connection_picker.Selection());
+			m_server_phone = m_bluetooth_connection_picker.Selection();
+			m_connected = m_bluetooth_client.Connect(m_server_phone);
 			
 			if (m_connected == true)
 			{
@@ -480,10 +483,17 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		{
 			m_connection_status_label.Text("Connected As Black");
 			m_clock.TimerEnabled(true);
-			m_connected = true;
+			
 			m_playing_black = true;
 			m_my_move = false;
-			setBlackPlayerBoard(m_screen_width);
+			// Only set the board up again if we were previously not connected,
+			// it is possible that we are here as a result of a reconnec
+			if (m_connected == false)
+			{
+				setBlackPlayerBoard(m_screen_width);
+			}
+			
+			m_connected = true;
 		}
 		else if(component.equals(m_chess_board) && eventName.equals("Touched")  && m_connected == true)
 		{
@@ -547,6 +557,11 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 		{	
 			if ((m_playing_black == true) && (m_my_move == false))
 			{
+				if (m_bluetooth_server.IsConnected()==false)
+				{
+					m_connection_status_label.Text("Not Connected ");
+				}
+				
 				if (m_bluetooth_server.BytesAvailableToReceive() >0)
 				{
 					String receivedText = m_bluetooth_server.ReceiveText(m_bluetooth_server.BytesAvailableToReceive());
@@ -563,6 +578,18 @@ public class MainActivity extends Form  implements HandlesEventDispatching
 			}
 			else if ((m_playing_black == false) && (m_my_move == false))
 			{
+				// If we are playing white ie. m_playing_black is false then we 
+				// are the client.  Check that we still have a connection to the server, if not reconnect
+				if (m_bluetooth_client.IsConnected()==false)
+				{
+					m_connected = m_bluetooth_client.Connect(m_server_phone);
+				}
+				
+				if (m_connected == false)
+				{
+					m_connection_status_label.Text("Not Connected ");
+				}
+				
 				if (m_bluetooth_client.BytesAvailableToReceive() >0)
 				{
 					String receivedText = m_bluetooth_client.ReceiveText(m_bluetooth_client.BytesAvailableToReceive());
